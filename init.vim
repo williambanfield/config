@@ -41,6 +41,7 @@ set tabstop=4
 set softtabstop=4
 set termguicolors
 set background=dark
+set t_Co=256
 set autoread
 set textwidth=0
 set showtabline=4
