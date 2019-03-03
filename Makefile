@@ -1,5 +1,8 @@
+.PHONY: i3
 i3:
-	sudo pacman -S i3 i3-wm i3status
+	sudo pacman -S i3-gaps i3-wm i3status
+	pacaur -S polybar
+	ln -s `pwd`/i3 ~/.config/i3
 
 pacaur: git
 	git clone https://aur.archlinux.org/cower.git
@@ -27,9 +30,11 @@ python:
 	sudo pacman -S python python-pip python-virtualenv
 	pip install --upgrade pip
 	sudo pip install ptpython
-
-languages-all: python
+go:
 	sudo pacman -S go
+	sudo mkdir -p ~/godev
+
+languages-all: python go
 
 cli-tools: 
 	sudo pacman -S wget tree jq the_silver_searcher
@@ -37,3 +42,10 @@ cli-tools:
 applications: pacaur
 	sudo pacman -S chromium 
 	pacaur -S chromium
+
+xorg:
+	sudo pacman -S xorg-xinit xorg-server
+	ln -s `pwd`/Xresources ~/.Xresources
+
+terminal: xorg
+	sudo pacman -S rxvt-unicode
