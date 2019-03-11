@@ -113,11 +113,11 @@ let g:LanguageClient_diagnosticsDisplay = {
     \         "signTexthl": "ALEInfoSign",
     \     },
     \ }
-noremap <silent><leader> h :call LanguageClient_textDocument_hover()<CR>
-noremap <silent><leader> d :call LanguageClient_textDocument_definition()<CR>
-noremap <silent><leader> r :call LanguageClient_textDocument_rename()<CR>
-noremap <silent><leader> s :call LanguageClient_textDocument_documentSymbol()<CR>
-noremap <silent><leader> ! :LanguageClientStart<CR>
+noremap <silent><leader>h :call LanguageClient_textDocument_hover()<CR>
+noremap <silent><leader>d :call LanguageClient_textDocument_definition()<CR>
+noremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
+noremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
+noremap <silent><leader>! :LanguageClientStart<CR>
 
 " autocomplete settings
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
