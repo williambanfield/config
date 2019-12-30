@@ -16,9 +16,10 @@ Plug 'rhysd/vim-go-impl'
 " autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
+Plug 'prabirshrestha/async.vim'
 
 " markdown editing
-Plug 'shime/livedown'
+Plug 'shime/vim-livedown'
 Plug 'plasticboy/vim-markdown'
 
 " language server
@@ -26,6 +27,9 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.s
 
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
+
+Plug 'avakhov/vim-yaml'
+
 
 " themes :-) 
 Plug 'morhetz/gruvbox'
@@ -70,6 +74,8 @@ autocmd FileType tex,mail,markdown,rst setlocal spell
 autocmd FileType text,tex,markdown,rst setlocal tw=76
 filetype plugin indent on
 
+let g:vim_markdown_folding_disabled = 1
+
 " allow jk to function as esc in insert and command mode
 inoremap jk <esc>
 cnoremap jk <esc>
@@ -81,12 +87,16 @@ let g:deoplete#enable_at_startup = 1
 let g:go_fmt_command = "goimports"
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
+let g:go_auto_type_info = 1 
 
 
 " language client setup
 let g:LanguageClient_autoStart = 0
 let g:LanguageClient_serverCommands = {
-    \ 'go': ['go-langserver'] }
+    \ 'go': ['gopls'],
+    \ 'cpp': ['clangd'] }
+
+
 let g:LanguageClient_diagnosticsDisplay = {
     \     1: {
     \         "name": "Error",
@@ -113,11 +123,21 @@ let g:LanguageClient_diagnosticsDisplay = {
     \         "signTexthl": "ALEInfoSign",
     \     },
     \ }
+
+" Let clangd fully control code completion
+let g:ycm_clangd_uses_ycmd_caching = 0
+" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
+let g:ycm_clangd_binary_path = exepath("clangd")
+
+
 noremap <silent><leader>h :call LanguageClient_textDocument_hover()<CR>
 noremap <silent><leader>d :call LanguageClient_textDocument_definition()<CR>
 noremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
 noremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
 noremap <silent><leader>! :LanguageClientStart<CR>
+
+" go if err
+autocmd Filetype go noremap <silent><leader>ge :GoIfErr<CR>
 
 " autocomplete settings
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
