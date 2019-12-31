@@ -5,16 +5,13 @@ i3:
 	ln -s `pwd`/i3 ~/.config/i3
 
 pacaur: git
-	git clone https://aur.archlinux.org/cower.git
-	cd cower && makepkg -si
-	git clone https://aur.archlinux.org/pacaur.git
-	cd pacaur && makepkg -si
-	rm -rf cower pacaur
+	git clone https://aur.archlinux.org/yay.git
+	cd yay && makepkg -si
+	rm -rf yay
 
 vim:
 	sudo pacman -S neovim
-	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.config/nvim
-	curl https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -sfLo ~/.vim/autoload/plug.vim --create-dirs
+	curl https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -sfLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
 	ln -s `pwd`/init.vim ~/.config/nvim/init.vim
 	nvim --headless +PlugInstall +UpdateRemotePlugins +qa
 
@@ -28,7 +25,7 @@ tmux:
 
 python:
 	sudo pacman -S python python-pip python-virtualenv
-	pip install --upgrade pip
+	sudo pip install --upgrade pip
 	sudo pip install ptpython
 go:
 	sudo pacman -S go
@@ -39,13 +36,14 @@ languages-all: python go
 cli-tools: 
 	sudo pacman -S wget tree jq the_silver_searcher
 
-applications: pacaur
+applications: 
 	sudo pacman -S chromium 
-	pacaur -S chromium
 
 xorg:
 	sudo pacman -S xorg-xinit xorg-server
 	ln -s `pwd`/Xresources ~/.Xresources
 
 terminal: xorg
+	yay -Syu ttf-monaco
 	sudo pacman -S rxvt-unicode
+
