@@ -29,7 +29,7 @@ python:
 	sudo pip install ptpython
 go:
 	sudo pacman -S go
-	sudo mkdir -p ~/godev
+	mkdir -p ~/godev
 
 languages-all: python go
 
