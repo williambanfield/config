@@ -3,10 +3,17 @@ call plug#begin('~/.vim/plugged')
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-rhubarb'
+
+" fuzzy finder
+Plug 'junegunn/fzf'
 
 " airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" rust 
+Plug 'rust-lang/rust.vim'
 
 " golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -22,6 +29,9 @@ Plug 'prabirshrestha/async.vim'
 Plug 'shime/vim-livedown'
 Plug 'plasticboy/vim-markdown'
 
+" rst files
+Plug 'gu-fan/riv.vim'
+
 " language server
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
@@ -30,6 +40,8 @@ Plug 'tpope/vim-surround'
 
 Plug 'avakhov/vim-yaml'
 
+" varnish
+Plug 'fgsch/vim-varnish'
 
 " themes :-) 
 Plug 'morhetz/gruvbox'
@@ -37,11 +49,14 @@ Plug 'morhetz/gruvbox'
 " additional text objects and text object power
 Plug 'wellle/targets.vim'
 
+" terraform 
+Plug 'hashivim/vim-terraform'
 call plug#end()
 
 let mapleader=","
 syntax on
 set tabstop=4
+set colorcolumn=80
 set softtabstop=4
 set termguicolors
 set background=dark
@@ -49,7 +64,7 @@ set t_Co=256
 set autoread
 set textwidth=0
 set showtabline=4
-set number
+set relativenumber
 set cursorline
 set wildmenu
 set showmatch
@@ -67,68 +82,48 @@ set virtualedit=block
 set mouse=a
 set showcmd
 
-let &t_ut=''
-colorscheme gruvbox
-autocmd FileType go setlocal noexpandtab shiftwidth=4
-autocmd FileType tex,mail,markdown,rst setlocal spell
-autocmd FileType text,tex,markdown,rst setlocal tw=76
 filetype plugin indent on
 
-let g:vim_markdown_folding_disabled = 1
+let &t_ut=''
+colorscheme gruvbox
 
 " allow jk to function as esc in insert and command mode
 inoremap jk <esc>
 cnoremap jk <esc>
 
+" move visual lines
+nnoremap j gj
+nnoremap k gk
+
+" airline configuration
 let g:airline_theme='deus'
 let g:airline#extensions#tabline#enabled= 1
 
-let g:deoplete#enable_at_startup = 1
-let g:go_fmt_command = "goimports"
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_auto_type_info = 1 
+" fzf configuration
+nnoremap <C-p> :FZF<CR>
+let g:fzf_nvim_statusline=0
+
+" disable ugly status line when using fzf
+" taken from: https://github.com/junegunn/fzf.vim#status-line-of-terminal-buffer
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus showmode ruler
 
 
-" language client setup
+" language client configuration 
 let g:LanguageClient_autoStart = 0
 let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls'],
-    \ 'cpp': ['clangd'] }
+    \ 'rust': ['rls']} 
+
+let g:LanguageClient_useVirtualText = "No"
 
 
-let g:LanguageClient_diagnosticsDisplay = {
-    \     1: {
-    \         "name": "Error",
-    \         "texthl": "ALEError",
-    \         "signText": "E",
-    \         "signTexthl": "ALEErrorSign",
-    \     },
-    \     2: {
-    \         "name": "Warning",
-    \         "texthl": "ALEWarning",
-    \         "signText": "W",
-    \         "signTexthl": "ALEWarningSign",
-    \     },
-    \     3: {
-    \         "name": "Information",
-    \         "texthl": "ALEInfo",
-    \         "signText": "I",
-    \         "signTexthl": "ALEInfoSign",
-    \     },
-    \     4: {
-    \         "name": "Hint",
-    \         "texthl": "ALEInfo",
-    \         "signText": "➤",
-    \         "signTexthl": "ALEInfoSign",
-    \     },
-    \ }
-
-" Let clangd fully control code completion
-let g:ycm_clangd_uses_ycmd_caching = 0
-" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-let g:ycm_clangd_binary_path = exepath("clangd")
-
+"let g:LanguageClient_diagnosticsDisplay= {
+"      \   1: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
+"      \   2: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
+"      \   3: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
+"      \   4: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
+"      \ }
 
 noremap <silent><leader>h :call LanguageClient_textDocument_hover()<CR>
 noremap <silent><leader>d :call LanguageClient_textDocument_definition()<CR>
@@ -136,24 +131,49 @@ noremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
 noremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
 noremap <silent><leader>! :LanguageClientStart<CR>
 
-" go if err
-autocmd Filetype go noremap <silent><leader>ge :GoIfErr<CR>
-
 " autocomplete settings
+" deoplete configuration
+let g:deoplete#enable_at_startup = 1
+" disable deoplete from opening up documentation
+set completeopt-=preview
+
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
+" --- bindings for convenience --- 
 " edit .zshrc
 nnoremap <silent><leader>ez :tabedit ~/.zsh/<CR>
 " edit vimrc
 nnoremap <silent><leader>ev :tabedit ~/.config/nvim/init.vim<CR>
 " source vimrc
 nnoremap <silent><leader>sv :so $MYVIMRC<CR>
-" remove search highlighting
+" clear out search highlighting
 nnoremap <silent><space> :nohlsearch<CR>
-" move visual lines
-nnoremap j gj
-nnoremap k gk
+
+" --- Filetype specific configuration --- 
+
+" rust file configurations
+let g:rustfmt_autosave = 1
+
+" go file configuration
+let g:go_fmt_command = "goimports"
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_auto_type_info = 1 
+autocmd FileType go setlocal noexpandtab shiftwidth=4
+autocmd Filetype go noremap <silent><leader>ge :GoIfErr<CR>
+
+" terraform on save format
+let g:terraform_fmt_on_save=1
+
+" disable folding in markdown
+let g:vim_markdown_folding_disabled = 1
+
+" set up a colorcolumn
+au Filetype rust set colorcolumn=100
+
+" set spell checking for mail/markdown/rst/tex files
+autocmd FileType tex,mail,markdown,rst setlocal spell
