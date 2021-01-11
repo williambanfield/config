@@ -14,3 +14,8 @@
 [alias]
 	bc = rev-parse --abbrev-ref HEAD
 	pb = !git push origin $(git bc)
+[mergetool "vimdiff"]
+    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[pull]
+	ff = only
