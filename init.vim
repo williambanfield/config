@@ -49,6 +49,9 @@ Plug 'morhetz/gruvbox'
 " additional text objects and text object power
 Plug 'wellle/targets.vim'
 
+" ansible specific plugin
+Plug 'pearofducks/ansible-vim'
+
 " terraform 
 Plug 'hashivim/vim-terraform'
 call plug#end()
@@ -81,6 +84,9 @@ set formatoptions+=1
 set virtualedit=block
 set mouse=a
 set showcmd
+set autoindent
+set smartindent
+set shiftwidth=4
 
 filetype plugin indent on
 
