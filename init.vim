@@ -54,6 +54,8 @@ Plug 'pearofducks/ansible-vim'
 
 " terraform 
 Plug 'hashivim/vim-terraform'
+
+Plug 'uber/prototool', { 'rtp':'vim/prototool' }
 call plug#end()
 
 let mapleader=","
@@ -67,7 +69,7 @@ set t_Co=256
 set autoread
 set textwidth=0
 set showtabline=4
-set relativenumber
+set nu
 set cursorline
 set wildmenu
 set showmatch
@@ -118,7 +120,7 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
 " language client configuration 
 let g:LanguageClient_autoStart = 0
 let g:LanguageClient_serverCommands = {
-    \ 'go': ['gopls'],
+    \ 'go': ['gopls'], 
     \ 'rust': ['rls']} 
 
 let g:LanguageClient_useVirtualText = "No"
@@ -169,6 +171,7 @@ let g:go_fmt_command = "goimports"
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_auto_type_info = 1 
+let g:go_auto_sameids = 0
 autocmd FileType go setlocal noexpandtab shiftwidth=4
 autocmd Filetype go noremap <silent><leader>ge :GoIfErr<CR>
 
@@ -177,6 +180,12 @@ let g:terraform_fmt_on_save=1
 
 " disable folding in markdown
 let g:vim_markdown_folding_disabled = 1
+
+" format proto on save
+autocmd Filetype proto :call PrototoolFormatOnSave()
+nnoremap <silent> <leader>f :call PrototoolFormatFix()<CR>
+
+
 
 " set up a colorcolumn
 au Filetype rust set colorcolumn=100

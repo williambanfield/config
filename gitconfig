@@ -1,6 +1,8 @@
 [user]
 	email = wbanfield@gmail.com
 	name = William Banfield
+	signkey = EFAD3442BF29E3AC
+	signingkey = EFAD3442BF29E3AC
 [core]
 	editor = vim
 [web]
@@ -10,12 +12,13 @@
 [difftool]
 	prompt = false
 [github]
-	user = billybanfield
+	user = williambanfield
 [alias]
 	bc = rev-parse --abbrev-ref HEAD
 	pb = !git push origin $(git bc)
 [mergetool "vimdiff"]
     cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-
 [pull]
 	ff = only
+[commit]
+	gpgsign = true
