@@ -14,10 +14,16 @@ npm:
 	sudo pacman -S npm 
 	sudo chown -R `whoami` /usr/lib/node_modules
 
-livedown: npm
-	sudo npm install -g livedown
+# yarn is required for instant-markdown/vim-instant-markdown
+yarn: 
+	sudo pacman -S yarn
+	sudo chown -R `whoami` /usr/lib/node_modules/yarn
 
-vim: livedown
+instant-markdown:
+	#this required sudo, not sure how to change that at the moment. this program is a much nicer alternative to livedown!
+	npm -g install instant-markdown-d
+
+vim: yarn
 	sudo pacman -S neovim
 	sh -c 'curl -fLo ~/.local/share}/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	mkdir -p ~/.config/nvim/

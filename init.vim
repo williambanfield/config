@@ -26,8 +26,10 @@ Plug 'ervandew/supertab'
 Plug 'prabirshrestha/async.vim'
 
 " markdown editing
-Plug 'shime/vim-livedown'
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 Plug 'plasticboy/vim-markdown'
+Plug 'mzlogin/vim-markdown-toc'
+
 
 " rst files
 Plug 'gu-fan/riv.vim'
@@ -40,20 +42,11 @@ Plug 'tpope/vim-surround'
 
 Plug 'avakhov/vim-yaml'
 
-" varnish
-Plug 'fgsch/vim-varnish'
-
 " themes :-) 
 Plug 'morhetz/gruvbox'
 
 " additional text objects and text object power
 Plug 'wellle/targets.vim'
-
-" ansible specific plugin
-Plug 'pearofducks/ansible-vim'
-
-" terraform 
-Plug 'hashivim/vim-terraform'
 
 Plug 'uber/prototool', { 'rtp':'vim/prototool' }
 call plug#end()
@@ -89,6 +82,10 @@ set showcmd
 set autoindent
 set smartindent
 set shiftwidth=4
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:_
+set list
+set noswapfile 
+
 
 filetype plugin indent on
 
@@ -120,10 +117,13 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
 " language client configuration 
 let g:LanguageClient_autoStart = 0
 let g:LanguageClient_serverCommands = {
-    \ 'go': ['gopls'], 
-    \ 'rust': ['rls']} 
+    \ 'go': ['gopls'],
+    \ 'rust': ['rls']}
 
 let g:LanguageClient_useVirtualText = "No"
+
+let g:vmt_auto_update_on_save = 0
+let g:vmt_dont_insert_fence = 1
 
 
 "let g:LanguageClient_diagnosticsDisplay= {
@@ -172,6 +172,9 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_auto_type_info = 1 
 let g:go_auto_sameids = 0
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
 autocmd FileType go setlocal noexpandtab shiftwidth=4
 autocmd Filetype go noremap <silent><leader>ge :GoIfErr<CR>
 
