@@ -8,7 +8,9 @@
 [web]
 	browser = chromium
 [diff]
-	tool = vimdiff
+	tool = vimdiff3
+[merge]
+	tool = vimdiff3
 [difftool]
 	prompt = false
 [github]

@@ -6,7 +6,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-rhubarb'
 
 " fuzzy finder
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " airline
 Plug 'vim-airline/vim-airline'
@@ -19,6 +20,9 @@ Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'rhysd/vim-go-impl'
+
+" snippits
+Plug 'SirVer/ultisnips'
 
 " autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -39,8 +43,6 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.s
 
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
-
-Plug 'avakhov/vim-yaml'
 
 " themes :-) 
 Plug 'morhetz/gruvbox'
@@ -86,7 +88,6 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:_
 set list
 set noswapfile 
 
-
 filetype plugin indent on
 
 let &t_ut=''
@@ -104,18 +105,23 @@ nnoremap k gk
 let g:airline_theme='deus'
 let g:airline#extensions#tabline#enabled= 1
 
+" fugitive configuration
+nnoremap <silent><leader>br :.GBrowse<CR>
+
 " fzf configuration
 nnoremap <C-p> :FZF<CR>
+nnoremap <C-s> :Ag<CR>
+nnoremap <C-l> :Lines<CR>
+nnoremap <C-b> :Buffer!<CR>
 let g:fzf_nvim_statusline=0
 
 " disable ugly status line when using fzf
 " taken from: https://github.com/junegunn/fzf.vim#status-line-of-terminal-buffer
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus showmode ruler
-
+ \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " language client configuration 
-let g:LanguageClient_autoStart = 0
+let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls'],
     \ 'rust': ['rls']}
@@ -124,14 +130,6 @@ let g:LanguageClient_useVirtualText = "No"
 
 let g:vmt_auto_update_on_save = 0
 let g:vmt_dont_insert_fence = 1
-
-
-"let g:LanguageClient_diagnosticsDisplay= {
-"      \   1: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
-"      \   2: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
-"      \   3: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
-"      \   4: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
-"      \ }
 
 noremap <silent><leader>h :call LanguageClient_textDocument_hover()<CR>
 noremap <silent><leader>d :call LanguageClient_textDocument_definition()<CR>
@@ -167,19 +165,23 @@ nnoremap <silent><space> :nohlsearch<CR>
 let g:rustfmt_autosave = 1
 
 " go file configuration
-let g:go_fmt_command = "goimports"
+let g:go_snippet_engine = "ultisnips"
+let g:go_fmt_command = "gopls"
+let g:go_test_show_name = 0
+let g:go_doc_popup_window = 1
+let g:go_doc_keywordprg_enabled = 1
+let g:go_doc_balloon = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_auto_type_info = 1 
 let g:go_auto_sameids = 0
+let g:go_fillstruct_mode = 'gopls'
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
-
-autocmd FileType go setlocal noexpandtab shiftwidth=4
+let g:go_updatetime= 200
+autocmd FileType go nmap <leader>tf  <Plug>(go-test-func)
 autocmd Filetype go noremap <silent><leader>ge :GoIfErr<CR>
-
-" terraform on save format
-let g:terraform_fmt_on_save=1
+autocmd FileType go setlocal noexpandtab shiftwidth=4
 
 " disable folding in markdown
 let g:vim_markdown_folding_disabled = 1
@@ -187,7 +189,6 @@ let g:vim_markdown_folding_disabled = 1
 " format proto on save
 autocmd Filetype proto :call PrototoolFormatOnSave()
 nnoremap <silent> <leader>f :call PrototoolFormatFix()<CR>
-
 
 
 " set up a colorcolumn
