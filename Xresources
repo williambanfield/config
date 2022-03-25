@@ -1,24 +1,15 @@
 ! URxvt
 URxvt.saveLines: 2000
 URxvt.termName: rxvt
-URxvt.cursorBlink: False
-URxvt*scrollBar: False
-
-! URxvt extensions
-URxvt.perl-ext-common: default, clipboard, keyboard-select, url-select
-URxvt.clipboard.autocopy: true
-URxvt.urlLauncher: xdg-open
-URxvt.urlButton: 1
-Urxvt.underlineURLs: True
-
+URxvt.cursorBlink: false
+URxvt*scrollBar: false
 
 URxvt.iso14755: false
 URxvt.iso14755_52: false
-URxvt.keysym.Shift-Control-C: eval:clipboard_copy
-URxvt.keysym.Shift-Control-V: eval:clipboard_paste
 
 URxvt*font: xft:Monaco:pixelsize=15
 URxvt*boldFont: xft:Monaco:bold:pixelsize=15
+
 
 
 !  Dracula Xresources palette

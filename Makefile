@@ -80,12 +80,14 @@ xorg:
 	ln -s `pwd`/Xresources ~/.Xresources
 
 fonts:
-	sudo pacman -S noto-fonts noto-fonts-emoji
-	yay -S ttf-monaco
+	yay -S ttf-monaco noto-fonts noto-fonts-emoji
 
-
-terminal: yay xorg fonts
+urxvt-install:
 	sudo pacman -S rxvt-unicode
+
+urxvt-ext:
+
+terminal: yay xorg fonts urxvt-install urxvt-ext
 
 github-cli:
 	sudo pacman -S github-cli
