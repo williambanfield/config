@@ -4,7 +4,11 @@ i3:
 	yay -S polybar
 	ln -s `pwd`/i3 ~/.config/i3
 
-yay: 
+gcc:
+	sudo pacman -S gcc
+
+.PHONY: yay
+yay: gcc
 	rm -rf yay
 	git clone https://aur.archlinux.org/yay.git
 	cd yay && makepkg -si
@@ -23,14 +27,21 @@ instant-markdown:
 	#this required sudo, not sure how to change that at the moment. this program is a much nicer alternative to livedown!
 	npm -g install instant-markdown-d
 
-vim: yarn
+vim-plug:
+	sh -c 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+vim-install:
 	sudo pacman -S neovim
-	sh -c 'curl -fLo ~/.local/share}/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+vim-config:
 	mkdir -p ~/.config/nvim/
 	ln -s `pwd`/init.vim ~/.config/nvim/init.vim
+
+vim-plugin-install:
 	# https://wiki.archlinux.org/title/Neovim#Installation
 	sudo pacman -S python-pynvim
 	nvim --headless +PlugInstall +UpdateRemotePlugins +qa
+
+vim: vim-install vim-plug vim-config vim-plugin-install
 
 git:
 	sudo pacman -S git
@@ -59,7 +70,7 @@ go:
 languages-all: python go
 
 cli-tools: 
-	sudo pacman -S wget tree jq the_silver_searcher fzf
+	sudo pacman -S wget tree jq ripgrep fzf man
 
 applications: 
 	yay -S google-chrome 
@@ -68,7 +79,19 @@ xorg:
 	sudo pacman -S xorg-xinit xorg-server
 	ln -s `pwd`/Xresources ~/.Xresources
 
-terminal: xorg
-	yay -Syu ttf-monaco
+fonts:
+	sudo pacman -S noto-fonts noto-fonts-emoji
+	yay -S ttf-monaco
+
+
+terminal: yay xorg fonts
 	sudo pacman -S rxvt-unicode
 
+github-cli:
+	sudo pacman -S github-cli
+
+github-login: github-cli
+	mkdir -p ~/.ssh
+	ssh-keygen -t ed25519 -C "wbanfield@gmail.com" -f ~/.ssh/github-key
+	gh auth login
+	ssh -i ~/.ssh/github-key git@github.com
