@@ -54,6 +54,7 @@ Plug 'uber/prototool', { 'rtp':'vim/prototool' }
 call plug#end()
 
 let mapleader=","
+noremap \ ,
 syntax on
 set tabstop=4
 set colorcolumn=80
@@ -110,7 +111,7 @@ nnoremap <silent><leader>br :.GBrowse<CR>
 
 " fzf configuration
 nnoremap <C-p> :FZF<CR>
-nnoremap <C-s> :Ag<CR>
+nnoremap <C-s> :Rg<CR>
 nnoremap <C-l> :Lines<CR>
 nnoremap <C-b> :Buffer!<CR>
 let g:fzf_nvim_statusline=0
