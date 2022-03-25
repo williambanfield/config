@@ -85,8 +85,6 @@ fonts:
 urxvt-install:
 	sudo pacman -S rxvt-unicode
 
-urxvt-ext:
-
 terminal: yay xorg fonts urxvt-install urxvt-ext
 
 github-cli:
