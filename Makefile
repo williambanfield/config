@@ -101,6 +101,6 @@ docker:
 	sudo systemctl enable docker.service
 
 docker-user:
-	sudo usermod `whoami` -aG docker
+	sudo usermod -aG docker `whoami`
 
 docker-all: docker docker-user
