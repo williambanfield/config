@@ -95,3 +95,12 @@ github-login: github-cli
 	ssh-keygen -t ed25519 -C "wbanfield@gmail.com" -f ~/.ssh/github-key
 	gh auth login
 	ssh -i ~/.ssh/github-key git@github.com
+
+docker:
+	sudo pacman -S docker
+	sudo systemctl enable docker.service
+
+docker-user:
+	sudo usermod `whoami` -aG docker
+
+docker-all: docker docker-user
