@@ -11,6 +11,7 @@
 	tool = vimdiff3
 [merge]
 	tool = vimdiff3
+	conflictstyle = diff3
 [difftool]
 	prompt = false
 [github]
@@ -31,4 +32,4 @@
 [pull]
 	ff = only
 [commit]
-	gpgsign = true
+#	gpgsign = true
