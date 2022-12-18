@@ -41,6 +41,10 @@ Plug 'gu-fan/riv.vim'
 " language server
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
+" AST generation
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground', {'do': ':TSUpdate'}
+
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 
@@ -51,6 +55,7 @@ Plug 'morhetz/gruvbox'
 Plug 'wellle/targets.vim'
 
 Plug 'uber/prototool', { 'rtp':'vim/prototool' }
+
 call plug#end()
 
 let mapleader=","
@@ -190,7 +195,6 @@ let g:vim_markdown_folding_disabled = 1
 " format proto on save
 autocmd Filetype proto :call PrototoolFormatOnSave()
 nnoremap <silent> <leader>f :call PrototoolFormatFix()<CR>
-
 
 " set up a colorcolumn
 au Filetype rust set colorcolumn=100
