@@ -18,7 +18,6 @@ Plug 'rust-lang/rust.vim'
 
 " golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'rhysd/vim-go-impl'
 
 " snippits
@@ -179,7 +178,7 @@ let g:go_doc_keywordprg_enabled = 1
 let g:go_doc_balloon = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
-let g:go_auto_type_info = 1 
+let g:go_auto_type_info = 0 
 let g:go_auto_sameids = 0
 let g:go_fillstruct_mode = 'gopls'
 let g:go_def_mode='gopls'
