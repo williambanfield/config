@@ -19,6 +19,8 @@
 [alias]
 	bc = rev-parse --abbrev-ref HEAD
 	pb = !git push origin $(git bc)
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+
 
 # merge-base master
     mm = !git merge-base HEAD origin/master
