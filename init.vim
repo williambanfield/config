@@ -22,23 +22,24 @@ Plug 'rhysd/vim-go-impl'
 
 " snippits
 Plug 'SirVer/ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 " autocomplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ervandew/supertab'
 Plug 'prabirshrestha/async.vim'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+
+" language server
+Plug 'neovim/nvim-lspconfig'
 
 " markdown editing
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
 
-
 " rst files
 Plug 'gu-fan/riv.vim'
-
-" language server
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
 " AST generation
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -125,34 +126,8 @@ let g:fzf_nvim_statusline=0
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-" language client configuration 
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-    \ 'go': ['gopls'],
-    \ 'rust': ['rls']}
-
-let g:LanguageClient_useVirtualText = "No"
-
 let g:vmt_auto_update_on_save = 0
 let g:vmt_dont_insert_fence = 1
-
-noremap <silent><leader>h :call LanguageClient_textDocument_hover()<CR>
-noremap <silent><leader>d :call LanguageClient_textDocument_definition()<CR>
-noremap <silent><leader>r :call LanguageClient_textDocument_rename()<CR>
-noremap <silent><leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
-noremap <silent><leader>! :LanguageClientStart<CR>
-
-" autocomplete settings
-" deoplete configuration
-let g:deoplete#enable_at_startup = 1
-" disable deoplete from opening up documentation
-set completeopt-=preview
-
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " --- bindings for convenience --- 
 " edit .zshrc
