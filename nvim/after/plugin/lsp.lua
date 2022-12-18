@@ -13,3 +13,8 @@ require('lspconfig')['gopls'].setup{
 	capabilities = capabilities
 }
 
+require('lspconfig')['bashls'].setup{
+	on_attach = on_attach,
+	flags = lsp_flags,
+	capabilities = capabilities
+}
