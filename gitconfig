@@ -5,6 +5,7 @@
 	signingkey = EFAD3442BF29E3AC
 [core]
 	editor = vim
+	excludesfile = ~/.gitignore
 [web]
 	browser = chromium
 [diff]

@@ -48,11 +48,12 @@ vim: vim-install vim-plug vim-config vim-plugin-install
 
 git:
 	sudo pacman -S git
-	ln -s `pwd`/gitconfig ~/.gitconfig	
+	ln -s `pwd`/gitconfig ~/.gitconfig
+	ln -s `pwd`/gitignore ~/.gitignore
 
 tmux:
 	sudo pacman -S tmux xclip
-	ln -s `pwd`/tmux.conf ~/.tmux.conf	
+	ln -s `pwd`/tmux.conf ~/.tmux.conf
 gnome:
 	sudo pacman -S gdm gnome
 	systemctl enable gdm.service
