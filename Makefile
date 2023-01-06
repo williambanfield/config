@@ -36,8 +36,8 @@ vim-plug:
 vim-install:
 	sudo pacman -S neovim
 vim-config:
-	mkdir -p ~/.config/nvim/
-	ln -s `pwd`/init.vim ~/.config/nvim/init.vim
+	mkdir -p ~/.config/
+	ln -s `pwd`/nvim ~/.config/nvim
 
 vim-plugin-install:
 	# https://wiki.archlinux.org/title/Neovim#Installation
