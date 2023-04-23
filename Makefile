@@ -33,6 +33,9 @@ bash-lsp:
 vim-plug:
 	sh -c 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+vim-packer: yay
+	yay -S packer
+
 vim-install:
 	sudo pacman -S neovim
 vim-config:
@@ -44,7 +47,7 @@ vim-plugin-install:
 	sudo pacman -S python-pynvim
 	nvim --headless +PlugInstall +UpdateRemotePlugins +qa
 
-vim: vim-install vim-plug vim-config vim-plugin-install
+vim: vim-install vim-packer vim-plug vim-config vim-plugin-install
 
 git:
 	sudo pacman -S git
