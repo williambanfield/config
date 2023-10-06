@@ -1,11 +1,12 @@
 [user]
-	email = wbanfield@gmail.com
+	email = william.banfield@chronosphere.io
 	name = William Banfield
 	signkey = EFAD3442BF29E3AC
 	signingkey = EFAD3442BF29E3AC
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = ~/.gitignore
+	hooksPath = /home/william/.config/git/hooks
 [web]
 	browser = chromium
 [diff]
@@ -22,12 +23,14 @@
 	pb = !git push origin $(git bc)
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
 
-
 # merge-base master
     mm = !git merge-base HEAD origin/master
 
 # merge-base master diff 
 	mmd = !git diff $(git mm)
+
+# rebase onto the fork point of master
+	rfp = !git rebase -i $(git merge-base --fork-point origin/master)
 [mergetool "vimdiff3"]
     cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [mergetool "vimdiff-2sides"]
@@ -36,3 +39,5 @@
 	ff = only
 [commit]
 #	gpgsign = true
+[url "git@github.com:"]
+	insteadOf = https://github.com

@@ -24,6 +24,18 @@ return require('packer').startup(function(use)
 	-- golang
 	use { 'fatih/vim-go',  run =  ':GoUpdateBinaries' }
 	use 'rhysd/vim-go-impl'
+	use {
+		'edolphin-ydf/goimpl.nvim',
+		requires = {
+			{'nvim-lua/plenary.nvim'},
+			{'nvim-lua/popup.nvim'},
+			{'nvim-telescope/telescope.nvim'},
+			{'nvim-treesitter/nvim-treesitter'},
+		},
+		config = function()
+			require'telescope'.load_extension'goimpl'
+		end,
+	}
 	
 	-- snippits
 	use 'SirVer/ultisnips'
@@ -69,5 +81,25 @@ return require('packer').startup(function(use)
 	use {'nvim-telescope/telescope.nvim', tag =  '0.1.1' }
 	
 	use 'github/copilot.vim'
+
+
+	use({
+		"jackMort/ChatGPT.nvim",
+		config = function()
+				require("chatgpt").setup()
+		end,
+		requires = {
+				"MunifTanjim/nui.nvim",
+				"nvim-lua/plenary.nvim",
+				"nvim-telescope/telescope.nvim"
+		}
+	})
+
+	use({
+		"robitx/gp.nvim",
+		config = function()
+				require("gp").setup()
+		end
+	})
 
 end)

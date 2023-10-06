@@ -1,5 +1,5 @@
 ! URxvt
-URxvt.saveLines: 2000
+URxvt.saveLines: 5000
 URxvt.termName: rxvt
 URxvt.cursorBlink: false
 URxvt*scrollBar: false

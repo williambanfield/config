@@ -1,6 +1,6 @@
 .PHONY: i3
 i3:
-	sudo pacman -S i3-gaps i3-wm i3status
+	sudo pacman -S i3-gaps i3-wm i3status dmenu
 	yay -S polybar
 	ln -s `pwd`/i3 ~/.config/i3
 
@@ -9,6 +9,7 @@ gcc:
 
 .PHONY: yay
 yay: gcc
+	sudo pacman -S fakeroot
 	rm -rf yay
 	git clone https://aur.archlinux.org/yay.git
 	cd yay && makepkg -si
@@ -34,7 +35,7 @@ vim-plug:
 	sh -c 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 vim-packer: yay
-	yay -S packer
+	yay -S nvim-packer-git
 
 vim-install:
 	sudo pacman -S neovim
@@ -79,14 +80,14 @@ languages-all: python go
 cli-tools: 
 	sudo pacman -S wget tree jq ripgrep fzf man
 
-applications: 
+applications:  yay
 	yay -S google-chrome 
 
 xorg:
 	sudo pacman -S xorg-xinit xorg-server
 	ln -s `pwd`/Xresources ~/.Xresources
 
-fonts:
+fonts: yay
 	yay -S ttf-monaco noto-fonts noto-fonts-emoji
 
 urxvt-install:

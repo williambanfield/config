@@ -12,8 +12,7 @@ Plug 'junegunn/fzf.vim'
 " airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-" rust 
+" rust
 Plug 'rust-lang/rust.vim'
 
 " golang
@@ -55,6 +54,15 @@ Plug 'morhetz/gruvbox'
 Plug 'wellle/targets.vim'
 
 Plug 'uber/prototool', { 'rtp':'vim/prototool' }
+
+Plug 'hashivim/vim-terraform'
+
+" experimental
+" these are plugins I'm trying out that I'm not sure if I like!
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+
+Plug 'github/copilot.vim'
 
 call plug#end()
 
@@ -119,6 +127,7 @@ nnoremap <C-p> :FZF<CR>
 nnoremap <C-s> :Rg<CR>
 nnoremap <C-l> :Lines<CR>
 nnoremap <C-b> :Buffer!<CR>
+nnoremap <C-e> :GFiles?<CR>
 let g:fzf_nvim_statusline=0
 
 " disable ugly status line when using fzf
@@ -168,10 +177,30 @@ let g:vim_markdown_folding_disabled = 1
 
 " format proto on save
 autocmd Filetype proto :call PrototoolFormatOnSave()
-nnoremap <silent> <leader>f :call PrototoolFormatFix()<CR>
+" nnoremap <silent> <leader>f :call PrototoolFormatFix()<CR>
 
 " set up a colorcolumn
 au Filetype rust set colorcolumn=100
 
 " set spell checking for mail/markdown/rst/tex files
 autocmd FileType tex,mail,markdown,rst setlocal spell
+
+autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+autocmd Filetype typescript,javascript,ecmascript,typescriptreact nnoremap <leader>f :EslintFixAll<CR>
+
+" 
+"function! ClangFormatProtoOnSave()
+"	!clang-format
+"endfunction
+"
+"
+"Experimental
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>ft <cmd>Telescope treesitter<cr>
+nnoremap <leader>fc <cmd>Telescope git_commits<cr>
+nnoremap <leader>fr <cmd>Telescope registers<cr>
