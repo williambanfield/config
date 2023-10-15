@@ -74,6 +74,8 @@ return require('packer').startup(function(use)
 	use {'uber/prototool', rtp = 'vim/prototool' }
 	
 	use 'hashivim/vim-terraform'
+
+	use 'tpope/vim-unimpaired'
 	
 	-- experimental
 	-- these are plugins I'm trying out that I'm not sure if I like!
@@ -101,5 +103,12 @@ return require('packer').startup(function(use)
 				require("gp").setup()
 		end
 	})
+	use {
+		"folke/which-key.nvim",
+		config = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end
+	}
 
 end)
