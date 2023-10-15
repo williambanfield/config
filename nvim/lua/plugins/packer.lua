@@ -13,8 +13,11 @@ return require('packer').startup(function(use) -- manager packer installation
 	use 'junegunn/fzf.vim'
 	
 	-- airline
-	use 'vim-airline/vim-airline'
-	use 'vim-airline/vim-airline-themes'
+	use {
+		'nvim-lualine/lualine.nvim',
+		requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+	}
+	use 'simrat39/symbols-outline.nvim'
 	
 	-- rust
 	use 'rust-lang/rust.vim'
@@ -69,8 +72,9 @@ return require('packer').startup(function(use) -- manager packer installation
 	use 'easymotion/vim-easymotion'
 	use 'tpope/vim-surround'
 	
-	-- themes :-) 
-	use 'sainnhe/everforest'
+	-- themes :-)
+	use 'morhetz/gruvbox'
+	use 'ku1ik/vim-monokai'
 	
 	-- additional text objects and text object power
 	use 'wellle/targets.vim'
@@ -113,5 +117,6 @@ return require('packer').startup(function(use) -- manager packer installation
 			vim.o.timeoutlen = 300
 		end
 	}
+	use 'jghauser/mkdir.nvim'
 
 end)
