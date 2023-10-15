@@ -1,8 +1,10 @@
 font:
   normal:
+    family: NotoSansM Nerd Font Propo
     family: Monaco Nerd Font
     style: Regular
   bold:
+    family: NotoSansM Nerd Font Propo
     family: Monaco Nerd Font
     style: Bold
   size: 11
