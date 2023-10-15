@@ -70,7 +70,7 @@ return require('packer').startup(function(use) -- manager packer installation
 	use 'tpope/vim-surround'
 	
 	-- themes :-) 
-	use 'morhetz/gruvbox'
+	use 'sainnhe/everforest'
 	
 	-- additional text objects and text object power
 	use 'wellle/targets.vim'
@@ -93,8 +93,7 @@ return require('packer').startup(function(use) -- manager packer installation
 		"jackMort/ChatGPT.nvim",
 		config = function()
 				require("chatgpt").setup()
-		end,
-		requires = {
+		end, requires = {
 				"MunifTanjim/nui.nvim",
 				"nvim-lua/plenary.nvim",
 				"nvim-telescope/telescope.nvim"
