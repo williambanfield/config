@@ -1,3 +1,5 @@
+require("mason").setup()
+
 local on_attach = function(client, bufnr) 
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, nil)
 	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, nil)

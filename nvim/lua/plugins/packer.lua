@@ -47,7 +47,12 @@ return require('packer').startup(function(use) -- manager packer installation
 	use 'ray-x/lsp_signature.nvim'
 
 	-- language server
-	use 'neovim/nvim-lspconfig'
+	use { 'neovim/nvim-lspconfig',
+		requires = {
+			'williamboman/mason.nvim',
+			'williamboman/mason-lspconfig.nvim',
+		},
+	}
 	
 	-- markdown editing
 	use { 'instant-markdown/vim-instant-markdown', ft = 'markdown', run = 'yarn install' }
