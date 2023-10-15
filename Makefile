@@ -86,7 +86,7 @@ xorg:
 	ln -s `pwd`/Xresources ~/.Xresources
 
 fonts: yay
-	yay -S ttf-monaco noto-fonts noto-fonts-emoji
+	yay -S ttf-monaco-nerd-font-git noto-fonts noto-fonts-emoji
 
 alacritty-install:
 	sudo pacman -S alacritty
