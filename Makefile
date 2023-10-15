@@ -28,9 +28,6 @@ instant-markdown:
 	#this required sudo, not sure how to change that at the moment. this program is a much nicer alternative to livedown!
 	npm -g install instant-markdown-d
 
-bash-lsp:
-	sudo pacman -S bash-language-server
-
 vim-plug:
 	sh -c 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
