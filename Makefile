@@ -82,6 +82,7 @@ applications:  yay
 
 xorg:
 	sudo pacman -S xorg-xinit xorg-server
+	ln -s `pwd`/xinitrc ~/.xinitrc
 	ln -s `pwd`/Xresources ~/.Xresources
 
 fonts: yay
