@@ -90,10 +90,12 @@ xorg:
 fonts: yay
 	yay -S ttf-monaco noto-fonts noto-fonts-emoji
 
-urxvt-install:
-	sudo pacman -S rxvt-unicode
+alacritty-install:
+	sudo pacman -S alacritty
+	mkdir -p ${HOME}/.config/alacritty
+	ln -s `pwd`/alacritty.yml ${HOME}/.config/alacritty/alacritty.yml
 
-terminal: yay xorg fonts urxvt-install urxvt-ext
+terminal: yay xorg fonts alacritty-install
 
 github-cli:
 	sudo pacman -S github-cli
