@@ -49,3 +49,10 @@ require('lspconfig')['lua_ls'].setup{
 	flags = lsp_flags,
 	capabilities = capabilities
 }
+
+require('lsp_signature').setup({
+	bind = true,
+	handler_opts = {
+		border = "rounded"
+	}
+})

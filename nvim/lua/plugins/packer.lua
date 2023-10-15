@@ -1,8 +1,6 @@
 vim.cmd [[packadd packer.nvim]]
 
-return require('packer').startup(function(use)
-
-	-- manager packer installation
+return require('packer').startup(function(use) -- manager packer installation
 	use 'wbthomason/packer.nvim'
 
 	-- git
@@ -46,7 +44,8 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/nvim-cmp'
 	use 'hrsh7th/cmp-buffer'
-	
+	use 'ray-x/lsp_signature.nvim'
+
 	-- language server
 	use 'neovim/nvim-lspconfig'
 	
