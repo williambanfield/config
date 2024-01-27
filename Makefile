@@ -91,7 +91,7 @@ fonts: yay
 alacritty-install:
 	sudo pacman -S alacritty
 	mkdir -p ${HOME}/.config/alacritty
-	ln -s `pwd`/alacritty.yml ${HOME}/.config/alacritty/alacritty.yml
+	ln -s `pwd`/alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
 
 terminal: yay xorg fonts alacritty-install
 
