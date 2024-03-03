@@ -15,6 +15,11 @@ yay: gcc
 	cd yay && makepkg -si
 	rm -rf yay
 
+gptscripts:
+	mkdir -p repos
+	git clone github.com/williambanfield:gptscripts.git "$(HOME)/repos/gptscripts"
+	ln -s "$(HOME)/repos/gptscripts" "$(HOME)/.gptscripts"
+
 npm: 
 	sudo pacman -S npm 
 	sudo chown -R `whoami` /usr/lib/node_modules
