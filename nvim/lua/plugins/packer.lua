@@ -90,8 +90,6 @@ return require('packer').startup(function(use) -- manager packer installation
 	use 'nvim-lua/plenary.nvim'
 	use {'nvim-telescope/telescope.nvim', tag =  '0.1.1' }
 	
-	use 'github/copilot.vim'
-
 
 	use({
 		"jackMort/ChatGPT.nvim",
@@ -118,5 +116,21 @@ return require('packer').startup(function(use) -- manager packer installation
 		end
 	}
 	use 'jghauser/mkdir.nvim'
+	use {
+	"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		requires = { 
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+		}
+	}
+	use {
+		'j-hui/fidget.nvim',
+		tag = 'legacy',
+		config = function()
+		end
+	}
+
 
 end)

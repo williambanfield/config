@@ -31,6 +31,9 @@
 
 # rebase onto the fork point of master
 	rfp = !git rebase -i $(git merge-base --fork-point origin/master)
+	plm = pull origin master
+	lastn = "!sh -c 'git reflog | grep -i \"checkout: moving\" | awk \"{print \\$6}\" | uniq | head -n \"$1\"' -"
+
 [mergetool "vimdiff3"]
     cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [mergetool "vimdiff-2sides"]
@@ -41,3 +44,5 @@
 #	gpgsign = true
 [url "git@github.com:"]
 	insteadOf = https://github.com
+[push]
+	autoSetupRemote = true
