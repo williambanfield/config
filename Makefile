@@ -90,6 +90,7 @@ xorg:
 	sudo pacman -S xorg-xinit xorg-server
 	ln -s `pwd`/xinitrc ~/.xinitrc
 	ln -s `pwd`/Xresources ~/.Xresources
+	ln -s `pwd`/xprofile ~/.xprofile
 
 fonts: yay
 	yay -S ttf-monaco-nerd-font-git noto-fonts noto-fonts-emoji ttf-noto-nerd
