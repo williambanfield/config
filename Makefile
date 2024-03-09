@@ -81,6 +81,7 @@ languages-all: python go
 
 cli-tools: 
 	sudo pacman -S wget tree jq ripgrep fzf man
+	yay -S 1password-cli
 
 applications:  yay
 	yay -S google-chrome 
