@@ -5,6 +5,8 @@ vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = tr
 vim.keymap.set('n', '<leader>ft', '<cmd>Telescope treesitter<cr>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>fc', '<cmd>Telescope git_commits<cr>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>fr', '<cmd>Telescope registers<cr>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>fs', '<cmd>Telescope lsp_workspace_symbols<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fs', function()
+  require('telescope.builtin').lsp_workspace_symbols({ query = "" })
+end, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>fds', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', { noremap = true, silent = true })
 

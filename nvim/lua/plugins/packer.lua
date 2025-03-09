@@ -17,7 +17,6 @@ return require('packer').startup(function(use) -- manager packer installation
 		'nvim-lualine/lualine.nvim',
 		requires = { 'nvim-tree/nvim-web-devicons', opt = true }
 	}
-	use 'simrat39/symbols-outline.nvim'
 	
 	-- rust
 	use 'rust-lang/rust.vim'
@@ -30,13 +29,14 @@ return require('packer').startup(function(use) -- manager packer installation
 		requires = {
 			{'nvim-lua/plenary.nvim'},
 			{'nvim-lua/popup.nvim'},
-			{'nvim-telescope/telescope.nvim'},
+			{'nvim-telescope/telescope.nvim', tag = '0.1.4' },
 			{'nvim-treesitter/nvim-treesitter'},
 		},
 		config = function()
 			require'telescope'.load_extension'goimpl'
 		end,
 	}
+	use { 'AndrewRadev/splitjoin.vim' }
 	
 	-- snippits
 	use 'SirVer/ultisnips'
@@ -88,19 +88,8 @@ return require('packer').startup(function(use) -- manager packer installation
 	-- experimental
 	-- these are plugins I'm trying out that I'm not sure if I like!
 	use 'nvim-lua/plenary.nvim'
-	use {'nvim-telescope/telescope.nvim', tag =  '0.1.1' }
+	use {'nvim-telescope/telescope.nvim'}
 	
-
-	use({
-		"jackMort/ChatGPT.nvim",
-		config = function()
-				require("chatgpt").setup()
-		end, requires = {
-				"MunifTanjim/nui.nvim",
-				"nvim-lua/plenary.nvim",
-				"nvim-telescope/telescope.nvim"
-		}
-	})
 
 	use({
 		"robitx/gp.nvim",
