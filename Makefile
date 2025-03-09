@@ -33,9 +33,6 @@ instant-markdown:
 	#this required sudo, not sure how to change that at the moment. this program is a much nicer alternative to livedown!
 	npm -g install instant-markdown-d
 
-vim-plug:
-	sh -c 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
 vim-packer: yay
 	yay -S nvim-packer-git
 
@@ -47,8 +44,8 @@ vim-config:
 
 vim-plugin-install:
 	# https://wiki.archlinux.org/title/Neovim#Installation
-	sudo pacman -S python-pynvim
-	nvim --headless +PlugInstall +UpdateRemotePlugins +qa
+#	sudo pacman -S python-pynvim
+	nvim --headless +PackerUpdate +PackerSync +qa
 
 vim: vim-install vim-packer vim-plug vim-config vim-plugin-install
 

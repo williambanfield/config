@@ -57,7 +57,7 @@ require('lspconfig')['lua_ls'].setup{
 	capabilities = capabilities
 }
 
-require('lspconfig')['bufls'].setup{
+require('lspconfig')['buf_ls'].setup{
 	on_attach = on_attach,
 	flags = lsp_flags,
 	capabilities = capabilities
