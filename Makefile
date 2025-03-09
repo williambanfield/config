@@ -43,11 +43,9 @@ vim-config:
 	ln -s `pwd`/nvim ~/.config/nvim
 
 vim-plugin-install:
-	# https://wiki.archlinux.org/title/Neovim#Installation
-#	sudo pacman -S python-pynvim
-	nvim --headless +PackerUpdate +PackerSync +qa
+	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-vim: vim-install vim-packer vim-plug vim-config vim-plugin-install
+vim: vim-install vim-packer vim-config vim-plugin-install
 
 git:
 	sudo pacman -S git
