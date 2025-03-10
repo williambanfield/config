@@ -1,0 +1,8 @@
+[Unit]
+Description=download updates for arch
+
+[Timer]
+OnCalendar=Mon..Fri 9:30
+
+[Install]
+WantedBy=timers.target

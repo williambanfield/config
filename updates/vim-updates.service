@@ -1,0 +1,6 @@
+[Unit]
+Description=download vim plugin updates
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nvim --headless -c 'autocmd User PackerComplete quitall' -c 'MasonUpdate' -c 'PackerSync'

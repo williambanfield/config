@@ -113,3 +113,7 @@ docker-user:
 	sudo usermod -aG docker `whoami`
 
 docker-all: docker docker-user
+
+auto-update:
+	sudo ln -s $(pwd)/updates/* /etc/systemd/system/
+	for file in ./updates/*.timer; do systemctl enable $$(basename $$file); done

@@ -1,0 +1,8 @@
+[Unit]
+Description=download updates for vim
+
+[Timer]
+OnCalendar=Mon..Fri 9:00
+
+[Install]
+WantedBy=timers.target
