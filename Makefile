@@ -52,9 +52,10 @@ git:
 	ln -s `pwd`/gitconfig ~/.gitconfig
 	ln -s `pwd`/gitignore ~/.gitignore
 
+.PHONY: tmux
 tmux:
 	sudo pacman -S tmux xclip
-	ln -s `pwd`/tmux.conf ~/.tmux.conf
+	ln -s `pwd`/tmux/tmux.conf ~/.tmux.conf
 gnome:
 	sudo pacman -S gdm gnome
 	systemctl enable gdm.service
