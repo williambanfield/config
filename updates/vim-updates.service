@@ -1,6 +1,9 @@
 [Unit]
 Description=download vim plugin updates
+After=NetworkManager-wait-online.service
+Wants=NetworkManager-wait-online.service
 
 [Service]
 Type=simple
+User=william
 ExecStart=/usr/bin/nvim --headless -c 'autocmd User PackerComplete quitall' -c 'MasonUpdate' -c 'PackerSync'

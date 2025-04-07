@@ -1,5 +1,7 @@
 [Unit]
 Description=download package updates
+After=NetworkManager-wait-online.service
+Wants=NetworkManager-wait-online.service
 
 [Service]
 Type=simple
