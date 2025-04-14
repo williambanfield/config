@@ -23,3 +23,10 @@ vim.api.nvim_set_keymap('n', '<leader>s', [[:.,$s/\<<C-r><C-w>\>//gc<Left><Left>
 
 -- Search and replace highlighted text
 vim.api.nvim_set_keymap('x', '<leader>s', [[y:.,$s/<C-r>"//gc<Left><Left><Left>]], { noremap = true, silent = false })
+
+-- copy into the paste buffer with <leader> t
+vim.keymap.set("v", "<leader>t", '"+y', { noremap = true, silent = true })
+-- paste out of the paste buffer with <leader> g
+vim.keymap.set("n", "<leader>g", '"+p', { noremap = true, silent = true })
+-- remap so that paste always pastes from "0
+vim.keymap.set("n", "<leader>p", '"0p', { noremap = true, silent = true })

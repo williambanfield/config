@@ -26,6 +26,8 @@ require('lspconfig')['gopls'].setup{
 	},
 	},
 }
+vim.g.go_gopls_enabled = 0 --- disable gopls for vim-go, instead rely on the nvim lsp installed version.
+
 
 require('lspconfig')['bashls'].setup{
 	on_attach = on_attach,

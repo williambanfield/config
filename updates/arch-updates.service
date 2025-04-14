@@ -5,4 +5,4 @@ Wants=NetworkManager-wait-online.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/yay -Syuw --noconfirm
+ExecStart=/usr/bin/yay -Syuw --noconfirm --ignore git-spice
