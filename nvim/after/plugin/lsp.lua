@@ -1,75 +1,41 @@
 require("mason").setup()
 
-local on_attach = function(client, bufnr) 
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, nil)
-	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, nil)
-	vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, nil)
-	vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, nil)
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(args)
+		local bufopts = { noremap=true, silent=true, buffer=args.buf }
+		vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+		vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+		vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+		vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+		vim.keymap.set('n', 'gtd', vim.lsp.buf.definition, bufopts)
+		vim.keymap.set('n', 'grn', vim.lsp.buf.rename, bufopts)
+	end
+})
 
+vim.lsp.config('*', {
+	capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
 
-	local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', 'gtd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'grn', vim.lsp.buf.rename, bufopts)
-end
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-require('lspconfig')['gopls'].setup{
-	on_attach = on_attach,
-	flags = lsp_flags,
-	capabilities = capabilities,
+vim.lsp.config('gopls', {
 	settings = {
 		gopls = {
-		buildFlags =  {"-tags=cluster_integration"},
+			buildFlags = {"-tags=cluster_integration"},
+		},
 	},
-	},
-}
-vim.g.go_gopls_enabled = 0 --- disable gopls for vim-go, instead rely on the nvim lsp installed version.
+})
 
+vim.lsp.enable({'gopls', 'bashls', 'ts_ls', 'eslint', 'pylsp', 'lua_ls', 'buf_ls', 'starpls'})
 
-require('lspconfig')['bashls'].setup{
-	on_attach = on_attach,
-	flags = lsp_flags,
-	capabilities = capabilities
-}
-
-require('lspconfig')['ts_ls'].setup{
-	on_attach = on_attach,
-	flags = lsp_flags,
-	capabilities = capabilities
-}
-
-require('lspconfig')['eslint'].setup{
-	on_attach = on_attach,
-	flags = lsp_flags,
-	capabilities = capabilities
-}
-
-require('lspconfig')['pylsp'].setup{
-	on_attach = on_attach,
-	flags = lsp_flags,
-	capabilities = capabilities
-}
-
-require('lspconfig')['lua_ls'].setup{
-	on_attach = on_attach,
-	flags = lsp_flags,
-	capabilities = capabilities
-}
-
-require('lspconfig')['buf_ls'].setup{
-	on_attach = on_attach,
-	flags = lsp_flags,
-	capabilities = capabilities
-}
-
-require('lsp_signature').setup({
-	bind = true,
-	handler_opts = {
-		border = "rounded"
-	}
+-- Use Neovim's built-in signature help (lsp_signature.nvim crashes treesitter on 0.12)
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('SignatureHelp', { clear = true }),
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client:supports_method('textDocument/signatureHelp') then
+			vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { buffer = args.buf })
+		end
+	end,
 })
 
 vim.api.nvim_create_augroup('EslintOnSave', { clear = true })
@@ -90,23 +56,44 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     callback = function()
         local bufnr = vim.api.nvim_get_current_buf()
 
-        -- Get buffer contents
         local content = table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), "\n")
 
-        -- Run shfmt on the buffer content
         local formatted_content = vim.fn.system("shfmt -i 2 --binary-next-line --space-redirects", content)
 
-        -- Check for errors in shfmt output
         if vim.v.shell_error ~= 0 then
             vim.api.nvim_err_writeln("shfmt error: " .. formatted_content)
             return
         end
 
-        -- Replace buffer content with formatted content
         vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(formatted_content, "\n"))
-        -- Ensure no newline is added at the end
         vim.bo[bufnr].eol = false
         vim.bo[bufnr].fixeol = false
+    end
+})
+
+vim.api.nvim_create_augroup('GoFmtOnSave', { clear = true })
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+    group = 'GoFmtOnSave',
+    pattern = '*.go',
+    callback = function(args)
+        local clients = vim.lsp.get_clients({ bufnr = args.buf, name = "gopls" })
+        if #clients == 0 then return end
+        local client = clients[1]
+        if not client.initialized then return end
+
+        local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
+        params.context = { only = { "source.organizeImports" } }
+        local result = vim.lsp.buf_request_sync(args.buf, "textDocument/codeAction", params, 3000)
+        for _, res in pairs(result or {}) do
+            for _, action in pairs(res.result or {}) do
+                if action.edit then
+                    vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
+                end
+            end
+        end
+
+        vim.lsp.buf.format({ bufnr = args.buf, timeout_ms = 3000, async = false })
     end
 })
 

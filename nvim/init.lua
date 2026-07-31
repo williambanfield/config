@@ -1,2 +1,2 @@
-require("environment")
 require("plugins")
+require("environment")

@@ -1,6 +1,5 @@
 vim.g.mapleader=","
 ---noremap \ ,
-vim.opt.syntax=on
 vim.opt.tabstop=4
 vim.opt.colorcolumn="80"
 vim.opt.softtabstop=4
@@ -8,7 +7,7 @@ vim.opt.termguicolors=true
 vim.opt.background="dark"
 vim.opt.autoread=true
 vim.opt.textwidth=0
-vim.opt.showtabline=4
+vim.opt.showtabline=2
 vim.opt.nu=true
 vim.opt.cursorline=true
 vim.opt.wildmenu=true

@@ -6,9 +6,10 @@
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore
-	hooksPath = /home/william/.config/git/hooks
+	hooksPath = /Users/william/.config/git/hooks
+	pager = less
 [web]
-	browser = chromium
+	browser = chrome
 [diff]
 	tool = vimdiff3
 [merge]
